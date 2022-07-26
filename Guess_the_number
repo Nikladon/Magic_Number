@@ -1,0 +1,50 @@
+import random
+
+
+def ask_number(nb_min, nb_max):
+    global lives
+    number_given_int = 0
+    while number_given_int == 0 and lives > 0:
+        number_given_str = (input(f"Please enter your choice of magic number between {nb_min} and {nb_max}: "))
+        try:
+            number_given_int = int(number_given_str)
+        except:
+            print("ERROR, please retry. ")
+            lives -= 1
+            print(f"You have {lives} lives left. ")
+            print("No alphabets please! ")
+        else:
+            if number_given_int < nb_min or number_given_int > nb_max and lives > 0:
+                print(f"ERROR, please enter a number between {nb_min} and {nb_max} ")
+                number_given_int = 0
+                lives -= 1
+                print(f"You have {lives} lives left. ")
+                print("Number too big :( ")
+    return number_given_int
+
+
+MIN_NUMBER = 1
+MAX_NUMBER = 1000
+MAGIC_NUMBER = random.randint(MIN_NUMBER, MAX_NUMBER)
+NB_LIVES = 30
+lives = NB_LIVES
+
+choice = 0
+
+
+while not choice == MAGIC_NUMBER and lives > 0:
+    print(f"You have {lives} lives left. ")
+    choice = ask_number(MIN_NUMBER, MAX_NUMBER)
+    if choice > MAGIC_NUMBER:
+        print("The number is lower. ")
+        lives -= 1
+    elif choice < MAGIC_NUMBER:
+        print("The number is greater. ")
+        lives -= 1
+    else:
+        print("You've won! ")
+
+if lives == 0:
+    print(f"You have lost. The magic number was {MAGIC_NUMBER}. ")
+
+print("THANK YOU FOR USING THE PROGRAM! PLAY AGAIN! :) ")
